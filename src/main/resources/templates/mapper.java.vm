@@ -1,0 +1,14 @@
+package ${package.Mapper};
+
+import ${package.Entity}.${entity};
+import ${superMapperClassPackage};
+
+/**
+ * @author : ${author}
+ * @className : ${table.mapperName}
+ * @package: ${package.Mapper}
+ * @description : $!{table.comment} 数据库映射Mapper
+ * @date :  ${date}
+ */
+public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+        }

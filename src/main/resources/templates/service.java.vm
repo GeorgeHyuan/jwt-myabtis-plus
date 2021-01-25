@@ -1,0 +1,67 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.exception.Result;
+import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
+
+/**
+ * @author : ${author}
+ * @className : I${entity}Service
+ * @package: ${package.Service}
+ * @description : $!{table.comment} 服务接口
+ * @date :  ${date}
+ */
+public interface I${entity}Service extends ${superServiceClass}<${entity}> {
+/**
+ * 添加
+ *
+ * @param ${table.entityPath}
+ * @return
+ */
+        Result<String> add(${entity} ${table.entityPath});
+
+/**
+ * 更新
+ *
+ * @param ${table.entityPath}
+ * @return
+ */
+        Result<Boolean> update(${entity} ${table.entityPath});
+
+/**
+ * 删除
+ *
+ * @param idList
+ * @return
+ */
+        Result<Boolean> delete(List<Long> idList);
+
+/**
+ * 查询详情
+ *
+ * @param id
+ * @return
+ */
+        Result<${entity}> getById(Long id);
+
+/**
+ * 查询列表
+ *
+ * @param ${table.entityPath}
+ * @return
+ */
+        Result<List<${entity}>>queryList(${entity} ${table.entityPath});
+
+    ##/**
+    ## * 查询分页列表
+    ## *
+    ## * @param page
+    ## * @param ${table.entityPath}
+    ## * @return
+    ## */
+    ##        Result<IPage<${entity}>>queryPageList(Page page,${entity} ${table.entityPath});
+        }

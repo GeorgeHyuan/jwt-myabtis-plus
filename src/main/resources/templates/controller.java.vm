@@ -1,0 +1,115 @@
+package ${package.Controller};
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+import com.exception.Result;
+import ${package.Entity}.${entity};
+    #if(${restControllerStyle})
+    import org.springframework.web.bind.annotation.RestController;
+    #else
+    import org.springframework.stereotype.Controller;
+    #end
+    #if(${superControllerClassPackage})
+    import ${superControllerClassPackage};
+    #end
+import ${package.Service}.I${entity}Service;
+import io.swagger.annotations.Api;
+import java.util.ArrayList;
+
+/**
+ * @author : ${author}
+ * @className : ${table.controllerName}
+ * @package: ${package.Controller}
+ * @description : $!{table.comment} 前端控制器
+ * @date :  ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping(value = "#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass}<${entity}> {
+#else
+@Api(tags = "${table.controllerName}")
+public class ${table.controllerName} {
+#end
+private final I${entity}Service i${table.entityPath}Service;
+
+public ${table.controllerName}(I${entity}Service i${table.entityPath}Service){
+        this.i${table.entityPath}Service=i${table.entityPath}Service;
+        }
+
+/**
+ * 添加
+ *
+ * @param ${table.entityPath}
+ * @return
+ */
+@PostMapping("/add")
+public Result<String> add(@RequestBody ${entity} ${table.entityPath}){
+        return i${table.entityPath}Service.add(${table.entityPath});
+        }
+
+/**
+ * 更新
+ *
+ * @param ${table.entityPath}
+ * @return
+ */
+@PutMapping(value = "/update")
+public Result<Boolean> update(@RequestBody ${entity} ${table.entityPath}){
+        return i${table.entityPath}Service.update(${table.entityPath});
+        }
+
+/**
+ * 删除
+ *
+ * @param ids
+ * @return
+ */
+@DeleteMapping(value = "/delete")
+public Result<Boolean> delete(@RequestParam(value = "ids") String ids){
+        String[]idsArray=ids.split(",");
+        List<Long> idList=new ArrayList<>();
+        for(String id:idsArray){
+        idList.add(Long.valueOf(id));
+        }
+        return i${table.entityPath}Service.delete(idList);
+        }
+
+/**
+ * 查询详情
+ *
+ * @param id
+ * @return
+ */
+@GetMapping(value = "/getById/{id}")
+public Result<${entity}> getById(@PathVariable(value = "id") Long id){
+        return i${table.entityPath}Service.getById(id);
+        }
+
+/**
+ * 查询列表
+ *
+ * @param ${table.entityPath}
+ * @return
+ */
+@PostMapping(value = "/queryList")
+public Result<List<${entity}>>queryList(@RequestBody ${entity} ${table.entityPath}){
+        return i${table.entityPath}Service.queryList(${table.entityPath});
+        }
+
+    ##/**
+    ## * 查询分页列表
+    ## *
+    ## * @param ${table.entityPath}
+    ## * @return
+    ## */
+    ##@PostMapping(value = "/queryPageList")
+    ##public Result<Page<${entity}>>queryPageList(@RequestBody ${entity} ${table.entityPath}){
+    ##        return i${table.entityPath}Service.queryPageList(${table.entityPath}.getPage(), ${table.entityPath});
+    ##        }
+        }
